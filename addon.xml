@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="plugin.video.tagesschauvideoblog" name="Tagesschau Videoblog" version="0.1" provider-name="Fiona Schmidtke, Niclas Hoyer">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.xbmcswift2" version="2.4.0"/>
+    <import addon="script.module.feedparser" version="5.1.2"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="addon.py">
+    <provides>video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary>Summary for "Tagesschau Videoblog"</summary>
+    <description>Description for "Tagesschau Videoblog"</description>
+  </extension>
+</addon>
