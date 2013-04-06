@@ -15,8 +15,11 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from xbmcswift2 import Plugin, xbmc, xbmcgui
+from xbmcswift2 import Plugin, xbmc, xbmcgui, xbmcaddon
 import urllib2,urllib,re,feedparser,HTMLParser
+
+addon = xbmcaddon.Addon()
+localize = addon.getLocalizedString
 
 plugin = Plugin()
 
@@ -93,11 +96,11 @@ def getEntries(url):
 @plugin.route('/')
 def index():
 	item = {
-		'label': 'Neueste',
+		'label': localize(32002),
 		'path': plugin.url_for('show_newest')
 	}
 	item2 = {
-		'label': 'Alle',
+		'label': localize(32001),
 		'path': plugin.url_for('show_all')
 	}
 	return [item, item2]
