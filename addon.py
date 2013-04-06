@@ -73,7 +73,7 @@ def getBlogs():
 	i = 0
 	for url in matchUrl:
 		obj = {
-			'title': h.unescape(removeNonAscii(matchTitle[i])),
+			'title': h.unescape(matchTitle[i]),
 			'url': tagesschauURL+url
 		}
 		objs.append(obj)
