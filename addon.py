@@ -15,8 +15,11 @@
 #You should have received a copy of the GNU General Public License
 #along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from xbmcswift2 import Plugin, xbmc, xbmcgui
+from xbmcswift2 import Plugin, xbmc, xbmcgui, xbmcaddon
 import urllib2,urllib,re,feedparser,HTMLParser
+
+addon = xbmcaddon.Addon()
+localize = addon.getLocalizedString
 
 plugin = Plugin()
 
@@ -29,17 +32,18 @@ blogsregexp      = re.compile('leftNavL2(.*)sendungenLeft', re.MULTILINE|re.DOTA
 blogurlregexp    = re.compile('a href="(\/videoblog\/[^"]+)"')
 blogtitleregexp  = re.compile('i2">([^<]+)<')
 entriesregexp    = re.compile('<h2><a[^>]href="\/([^"]+)[^>]+title="([^"]+)')
+teaserregexp     = re.compile('img src="(\/multimedia\/bilder\/[^"]+klein16x9+[^"]+)')
 
 def removeNonAscii(s):
 	return "".join(i for i in s if ord(i)<128)
 
 def parseTitle(title):
 	if title.startswith('Videoblog: '):
-		return title[11:]
+		title = title[11:]
 	elif title.startswith('Videoblog '):
-		return title[10:]
-	else:
-		return title
+		title = title[10:]
+	title = title.replace('&#034;','"');
+	return title
 
 def getVideoPageUrl(desc):
 	match = videoregexp.search(desc)
@@ -51,6 +55,8 @@ def getH264Video(url):
 	html = response.read()
 	response.close()
 	match = h264regexp.search(html)
+	if match == None:
+		return None
 	return match.group(0)
 
 def getBlogs():
@@ -80,24 +86,27 @@ def getEntries(url):
 	html = response.read()
 	response.close()
 	entries = entriesregexp.findall(html)
-	h = HTMLParser.HTMLParser()
+	teasers = teaserregexp.findall(html)
 	objs = []
+	i = 0
 	for entry in entries:
 		obj = {
-			'title': entry[1],
-			'url': tagesschauURL+entry[0]
+			'title': parseTitle(entry[1]),
+			'url': tagesschauURL+entry[0],
+			'teaser': tagesschauURL+teasers[i]
 		}
 		objs.append(obj)
+		i = i + 1
 	return objs
 
 @plugin.route('/')
 def index():
 	item = {
-		'label': 'Neueste',
+		'label': localize(32002),
 		'path': plugin.url_for('show_newest')
 	}
 	item2 = {
-		'label': 'Alle',
+		'label': localize(32001),
 		'path': plugin.url_for('show_all')
 	}
 	return [item, item2]
@@ -112,6 +121,8 @@ def show_newest():
 			'path': getH264Video(getVideoPageUrl(entry.description)),
 			'is_playable': True
 		}
+		if item['path'] == None:
+			continue
 		items.append(item)
 		
 	return items
@@ -138,9 +149,12 @@ def show_blog(blog):
 		item = {
 			'label': entry['title'],
 			'path': getH264Video(entry['url']),
+			'icon': entry['teaser'],
 			'is_playable': True
 		}
-		items.append(item)	
+		if item['path'] == None:
+			continue
+		items.append(item)
 	return items
 
 if __name__ == '__main__':
