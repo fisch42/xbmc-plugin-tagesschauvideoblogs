@@ -28,7 +28,7 @@ tagesschauURL = 'http://www.tagesschau.de/'
 h264regexp  = re.compile('http:\/\/[^"]+webl\.h264\.mp4')
 videoregexp = re.compile(re.escape(tagesschauURL)+'videoblog\/[^"]+')
 
-blogsregexp      = re.compile('leftNavL2(.*)sendungenLeft', re.MULTILINE|re.DOTALL)
+blogsregexp      = re.compile('leftNavL3(.*)sendungenLeft', re.MULTILINE|re.DOTALL)
 blogurlregexp    = re.compile('a href="(\/videoblog\/[^"]+)"')
 blogtitleregexp  = re.compile('i2">([^<]+)<')
 entriesregexp    = re.compile('<h2><a[^>]href="\/([^"]+)[^>]+title="([^"]+)')
