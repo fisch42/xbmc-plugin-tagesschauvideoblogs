@@ -7,10 +7,10 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-msgctxt "#32001"
+msgctxt "#30001"
 msgid "All"
 msgstr "Alle"
 
-msgctxt "#32002"
+msgctxt "#30002"
 msgid "Newest"
 msgstr "Neueste"

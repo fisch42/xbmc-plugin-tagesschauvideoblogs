@@ -102,11 +102,11 @@ def getEntries(url):
 @plugin.route('/')
 def index():
 	item = {
-		'label': localize(32002),
+		'label': localize(30002),
 		'path': plugin.url_for('show_newest')
 	}
 	item2 = {
-		'label': localize(32001),
+		'label': localize(30001),
 		'path': plugin.url_for('show_all')
 	}
 	return [item, item2]

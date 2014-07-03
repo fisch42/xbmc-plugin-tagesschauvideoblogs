@@ -30,6 +30,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
     <website>https://github.com/fisch42/xbmc-plugin-tagesschauvideoblogs</website>
     <source>https://github.com/fisch42/xbmc-plugin-tagesschauvideoblogs</source>
+    <forum></forum>
+    <email></email>
     <summary lang="de">tagesschau.de Videoblog</summary>
     <summary lang="en">videoblogs from tagesschau.de</summary>
     <description lang="de">Die Videoblogs der ARD-Korrespondenten auf tagesschau.de</description>
